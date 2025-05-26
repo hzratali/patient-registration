@@ -1,128 +1,48 @@
-# 🏥 Patient Registration App
+# Patient Management App
 
-A simple, offline-capable React application for registering patients, storing data locally using SQLite in the browser, and running SQL queries. Built with React, Material UI, and PGlite.
-## LiveLink :https://patient-registration-app-wheat.vercel.app/
----
+A simple React-based patient management system that allows users to register patients and run raw SQL queries. This project uses:
 
-## ✨ Features
+- **React** for the frontend
+- **Material UI (MUI)** for UI components and styling
+- **PGlite** (via `@electric-sql/pglite`) for an in-browser PostgreSQL-like database
 
-- 🔒 **Offline-first**: Local data storage using SQLite via PGlite in the browser
-- 💅 **Material UI**: Clean, responsive design with MUI components
-- 🧾 **SQL Playground**: Run raw SQL queries directly in the UI
-- 🔁 **Tab Syncing**: Real-time updates across multiple tabs using BroadcastChannel
+## Features
 
----
+- Patient registration with name, age, and gender
+- Display of registered patients in a DataGrid
+- Run raw SQL queries and view results dynamically
+- Responsive layout with sidebar navigation
 
-## 📦 Tech Stack
+## Setup
 
-| Technology     | Purpose                       |
-|----------------|-------------------------------|
-| React          | Frontend Framework            |
-| Vite           | Development and bundling tool |
-| Material UI    | UI Component Library          |
-| PGlite         | SQLite in the Browser         |
-| BroadcastChannel | Multi-tab sync               |
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/hzratali/patient-registration.git
+   cd patient-registration
+   ```
 
----
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## 🚀 Getting Started
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-### 1. Clone the Repository
+## Folder Structure
 
-```bash
-git clone https://github.com/shiva0123m/patient-registration-app.git
-cd patient-registration-app
+- `App.jsx` - Main application logic and view control
+- `components/`
+  - `Header.jsx` - App header
+  - `Sidebar.jsx` - Navigation sidebar
+  - `RegisterPatient.jsx` - Patient registration form and display
+  - `QueryPanel.jsx` - Raw SQL query execution and results display
 
+## Dependencies
 
-### 2 Install Dependecies
-npm install
-
-### 3. Start the Application
-npm run dev
-
-🖥️ App Structure
-├── App.jsx            # Main application logic and UI
-├── main.jsx           # Entry point
-├── index.html         # HTML template
-├── package.json
-└── vite.config.js     # Build tool configuration
-
-📸 UI Layout
-📋 Left Panel
-Patient registration form
-
-SQL query editor
-
-📊 Right Panel
-Table of registered patients
-
-Table of SQL query results
-
-Responsive design ensures optimal experience on all screen sizes.
-
-
-💾 Local Database (PGlite)
-This app uses @electric-sql/pglite to run a full SQLite engine in your browser. Data is stored persistently via IndexedDB.
-
-
-🧠 SQL Query Examples
--- View all patients
-SELECT * FROM patients;
-
--- Count patients
-SELECT COUNT(*) FROM patients;
-
--- Delete all records
-DELETE FROM patients;
-
-## Note : If you are using DML command such as update queries and delete queries then result will be reflected after refereshing the page.
-
-🔁 Syncing Across Tabs
-This app uses the BroadcastChannel API to keep all open browser tabs in sync. Registering a patient in one tab will automatically update the list in others.
-
-
-
-
- ##Challenges I Faced During Development
-1. Setting Up Tailwind with Vite and PostCSS Conflicts
-Initially, the app was planned to use Tailwind CSS. However, due to a PostCSS compatibility issue (tailwindcss moving its PostCSS plugin), errors like:
-
-
-It looks like you're trying to use tailwindcss directly as a PostCSS plugin...
-blocked the build process. I had to either install the correct plugin (@tailwindcss/postcss) or pivot to a different UI framework.
-
-Solution: Switched to Material UI for cleaner setup and consistent design components.
-
-2. Browser-Side Database with SQLite (PGlite)
-Using a full SQLite engine in the browser via @electric-sql/pglite was new and came with several complexities:
-
-Ensuring data persistence via IndexedDB
-
-Avoiding SQL injection by manually sanitizing user inputs
-
-Handling asynchronous initialization before executing queries
-
-Solution: Implemented an initDb() function and wrapped all interactions in try/catch blocks with loading states and validations.
-
-3. Real-Time Sync Between Browser Tabs
-Keeping the app synced across tabs required learning and implementing the BroadcastChannel API, which is not widely used and has limitations in some environments.
-
-Solution: Set up a shared broadcast channel and used .postMessage() and .onmessage handlers to update state reactively.
-
-4. Responsive Layout and UX Challenges
-Getting the layout to:
-
-Align forms on the left
-
-Results on the right
-
-Maintain a clean and balanced UI on both small and large screens
-
-was tricky with Material UI's grid system.
-
-Solution: Used Box, Grid, and Paper components with proper breakpoints and spacing to create a visually balanced two-column layout.
-
-5. Deploying with Vercel (Vite + IndexedDB)
-Vercel auto-detects Vite apps, but making sure IndexedDB works reliably in production (especially with hot reload off) required local testing in a real browser build.
-
-Solution: Thoroughly tested in incognito mode and other tabs to validate offline functionality and tab sync.
+- `@mui/material`
+- `@mui/icons-material`
+- `@mui/x-data-grid`
+- `@electric-sql/pglite`
